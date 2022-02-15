@@ -1,5 +1,8 @@
 #include <iostream>
 #include <cstring>
+#include "node.h"
+#include "node.cpp"
+
 
 using namespace std;
 
