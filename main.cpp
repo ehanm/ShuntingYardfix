@@ -1,22 +1,41 @@
 #include <iostream>
 #include <cstring>
-#include "node.h"
-#include "node.cpp"
+#include "stack.h"
 // this is shunting yard
 
 using namespace std;
+void push(char x, Stack* next);
+
+
 
 int main(){
 
-  char input[1000];
+  Stack* stackhead = NULL;
+  
+  char input[100];
 
-  char input2[1000];
+  char input2[100];
 
   cout << "Shunting Algorithm!" << endl;
 
   cout << "Enter a mathematical expression (make sure to include spaces): " << endl;
 
   cin >> input;
+
+  cout << input;
+
+  for (int i = 0; i < strlen(input); i++){
+
+    if (i = 0){
+
+      // push 
+      
+    }
+
+    if (input[i] = '+' || input[i] = '-' || input[i] = '*' || input[i] = '/' || 
+
+
+  }
 
   cout << "Prefix, Infix, or Postfix?" << endl;
 
