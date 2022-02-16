@@ -8,12 +8,8 @@ class Node {
  public:
   
   Node* getNext();
-  void setChar(char y);
-
   Node* next;
   char x;
-
-
 
 };
 #endif

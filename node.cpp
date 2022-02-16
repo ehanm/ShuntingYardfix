@@ -6,14 +6,8 @@ using namespace std;
 
 // the code for the nodes
 
-Node::getNext(){
+Node::push(char y){
 
-  return next;
-
-}
-
-void setChar(char y){
-
-  x = x;
+  x = y;
 
 }
