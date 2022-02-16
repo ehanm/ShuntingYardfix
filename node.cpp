@@ -4,10 +4,4 @@
 
 using namespace std;
 
-// the code for the nodes
-
-Node::push(char y){
-
-  x = y;
-
-}
+// code for the nodes (unused after using struct instead)
