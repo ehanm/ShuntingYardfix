@@ -4,16 +4,16 @@
 // this is shunting yard
 
 using namespace std;
-void push(char x, Stack* next);
 
-
+void push(char z, Stack* next);
 
 int main(){
 
   Stack* stackhead = NULL;
+  Queue* queuehead = NULL;
   
   char input[100];
-
+  
   char input2[100];
 
   cout << "Shunting Algorithm!" << endl;
@@ -24,27 +24,46 @@ int main(){
 
   cout << input;
 
-  for (int i = 0; i < strlen(input); i++){
-
-    if (i = 0){
-
-      // push 
-      
-    }
-
-    if (input[i] = '+' || input[i] = '-' || input[i] = '*' || input[i] = '/' || 
-
-
-  }
-
   cout << "Prefix, Infix, or Postfix?" << endl;
 
   cin >> input2;
 
-  // enter converting to prefix, infix, and postfix here
+  if (strcmp(input2, "Postfix") == 0) {
+    for (int i = 0; i < strlen(input); i++){
 
+      if (i = 0){
+
+	// enqueue 
+      
+      }
+
+      if (input[i] = '+' || input[i] = '-' || input[i] = '*' || input[i] = '/' || input[i] = '^'){
+
+	// push
+	
+      
+      }
+      
+    }
+  }
+
+  else if (strcmp(input2, "Prefix") == 0) {
+    // make prefix thing
+  }
+
+  else if (strcmp(input2, "Infix") == 0) {
+    // make infix thing
+  }
+
+}
+
+void push(char z, Stack* next){
+  if (next == NULL){
+
+    Stack* newpointer = new Stack();
+    nextpointer->z = x;
+
+
+  }
   
-
-
-
 }

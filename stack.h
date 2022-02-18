@@ -9,7 +9,7 @@ struct Stack {
  public:
 
   Stack* prev;
-  Stack* next;
+  Stack* next = NULL;
   char x;
 
 };
