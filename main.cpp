@@ -1,4 +1,3 @@
-dit Options Buffers Tools C++ Help
 #include <iostream>
 #include <cstring>
 #include "stack.h"
@@ -8,8 +7,12 @@ dit Options Buffers Tools C++ Help
 using namespace std;
 
 void push(char z, Stack* &head);
+char peek(Stack* head);
+void pop(Stack* &head);
 void enqueue(char z, Queue* &head);
-
+void postfixqueue(Stack* &stack, Queue* &queue);
+void printqueue(Queue* head);
+void stackevaluate(Stack* &head, Queue* &qhead);
 
 int main(){
 
@@ -17,16 +20,13 @@ int main(){
   Queue* queuehead = NULL;
 
   char input[100];
-
   char input2[100];
 
   cout << "Shunting Algorithm!" << endl;
 
   cout << "Enter a mathematical expression (make sure to include spaces): " << endl;
 
-  cin >> input;
-
-  cout << input;
+  cin.getline(input, 100);
 
   cout << "Prefix, Infix, or Postfix?" << endl;
 
@@ -35,34 +35,64 @@ int main(){
   if (strcmp(input2, "Postfix") == 0) {
     for (int i = 0; i < strlen(input); i++){
 
-      if (i = 0){
-
-        // enqueue
-
-      }
-
-      else if (input[i] = '+' || input[i] = '-' || input[i] = '*' || input[i] = '/' || input[i] = '^' || input[i] = '('){
+      if (input[i] == '('){
 
         push(input[i], stackhead);
 
       }
 
-      else if (input[i] = '1' || input[i] = '2' || input[i] = '3' || input[i] = '4' || input[i] = '5' ||
-               input[i] = '6' || input[i] = '7' || input[i] = '8' || input[i] = '9'){
+      if (input[i] == '+' || input[i] == '-' || input[i] == '*' || input[i] == '/' || input[i] == '^'){
+        char a = input[i];
+        char c = peek(stackhead);
 
-        enqueue(input[i], queuehead);
+        if (stackhead == NULL) {
 
+          push(a, stackhead);
 
+        }
+
+        else if (stackhead != NULL) {
+
+          if (peek(stackhead) == '('){
+
+            push(a, stackhead);
+
+          }
+          else{
+
+          pop(stackhead);
+
+          push(a, stackhead);
+          enqueue(c, queuehead);
+
+          }
+        }
+
+      }
+
+      else if (input[i] == '1' || input[i] == '2' || input[i] == '3' || input[i] == '4' || input[i] == '5' ||
+               input[i] == '6' || input[i] == '7' || input[i] == '8' || input[i] == '9'){
+
+        char b = input[i];
+        enqueue(b, queuehead);
+
+      }
+
+      else if (input[i] == ')'){
+        stackevaluate(stackhead, queuehead);
       }
 
     }
 
-    // move stuff from stack to queue
 
+    postfixqueue(stackhead, queuehead);// move stuff from stack to queue
+
+    printqueue(queuehead);
     // print queue
+
   }
 
-  else if (strcmp(input2, "Prefix") == 0) {
+  if (strcmp(input2, "Prefix") == 0) {
     // make prefix thing
   }
 
@@ -79,8 +109,21 @@ void push(char z, Stack* &head) {
   head = newpointer;
 }
 
-void enqueue(char z, Queue* &head) {
+char peek(Stack* head){
+  if (head != NULL){
+    return head->x;
+  }
+}
 
+void pop(Stack* &head){
+
+  Stack* temp = head;
+  head = head->next;
+  delete temp;
+
+}
+
+void enqueue(char z, Queue* &head) {
 
   if (head == NULL){
     Queue* newpointer = new Queue();
@@ -103,5 +146,48 @@ void enqueue(char z, Queue* &head) {
   }
 
 }
+
+void printqueue(Queue* head){
+
+  if (head != NULL) {
+
+    cout << head->x;
+    printqueue(head->next);
+
+  }
+  else {
+    return;
+  }
+
+
+}
+
+void postfixqueue(Stack* &stack, Queue* &queue){
+
+  while (stack != NULL){
+    enqueue(stack->x, queue);
+    stack = stack->next;
+  }
+
+}
+
+void stackevaluate(Stack* &head, Queue* &qhead){
+
+  while (head->x != '('){
+
+    enqueue(head->x, qhead);
+
+    Stack* temp = head;
+
+    head = head->next;
+
+    pop(temp);
+
+  }
+
+  pop(head);
+
+}
+
 
 
