@@ -3,10 +3,11 @@
 
 using namespace std;
 
-struct Queue {
+struct Tree {
 
-  // make queue
   char x;
-  Queue* next;  
+
+  Tree* left;
+  Tree* right;
   
 };
