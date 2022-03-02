@@ -4,7 +4,7 @@
 
 using namespace std;
 
-struct Stack {
+struct Stack { // struck for stack
 
  public:
 

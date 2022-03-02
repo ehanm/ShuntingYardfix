@@ -2,7 +2,7 @@
 #include <iostream>
 #include "tree.h"
 
-using namespace std;
+using namespace std; // creates the commands necessary to use the tree
 
 void Tree::setchar(char p){
 

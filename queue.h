@@ -5,7 +5,7 @@ using namespace std;
 
 struct Queue {
 
-  // make queue
+  // struct for queue
   char x;
   Queue* next;  
   

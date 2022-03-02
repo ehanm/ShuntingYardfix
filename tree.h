@@ -3,7 +3,7 @@
 
 using namespace std;
 
-class Tree {
+class Tree { // class to initialize the tree
 public:
   char x;
   Tree* left;

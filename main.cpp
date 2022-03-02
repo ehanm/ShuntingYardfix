@@ -3,7 +3,8 @@
 #include "stack.h"
 #include "queue.h"
 #include "tree.h"
-// this is shunting yard
+// this is shunting yard, an algorithm that takes a basic numerical expression, converts it to postfix using a stack and a queue, and then converts it to prefix, postfix, and infix using the binary tree
+// created by Ehan Masud, completed on 3/1/2022
 
 using namespace std;
 
@@ -11,6 +12,7 @@ void push(char z, Stack* &head);
 char peek(Stack* head);
 void pop(Stack* &head);
 void enqueue(char z, Queue* &head);
+void dequeue(char z, Queue* &head);
 void postfixqueue(Stack* &stack, Queue* &queue);
 void printqueue(Queue* head);
 void stackevaluate(Stack* &head, Queue* &qhead);
@@ -41,7 +43,7 @@ int main(){
       
     }
     
-    if (input[i] == '+' || input[i] == '-' || input[i] == '*' || input[i] == '/' || input[i] == '^'){
+    if (input[i] == '+' || input[i] == '-' || input[i] == '*' || input[i] == '/' || input[i] == '^'){ // move to stack and queue
       char a = input[i];
       char c = peek(stackhead);
       
@@ -85,13 +87,18 @@ int main(){
     
   Stack* newhead = NULL;
   
-  postfixqueue(stackhead, queuehead);// move stuff from stack to queue
+  postfixqueue(stackhead, queuehead);// move remaining stuff from stack to queue
 
+
+  // prints out the tree
   cout << "Postfix before tree: ";
   printqueue(queuehead);
   cout << endl;
-  // print queue
+  
 
+
+  // create the tree
+  
   Tree* treehead = NULL;
   
   while (queuehead != NULL){
@@ -114,6 +121,7 @@ int main(){
 
   }
 
+  // print out the infix, prefix, and postfix from tree
 
   cout << "Infix after tree: ";
   printInfix(treehead);
@@ -126,22 +134,20 @@ int main(){
   cout << "Postfix after tree: ";
   printPostfix(treehead);
   cout << endl;
-
-  
   
   return 0;
 
 }
 
 
-void push(char z, Stack* &head) {
+void push(char z, Stack* &head) { // pushes to stack
   Stack* newpointer = new Stack();
   newpointer->x = z;
   newpointer->next = head;
   head = newpointer;
 }
 
-char peek(Stack* head) {
+char peek(Stack* head) { //gets first thing added to stack
   char a;
   if (head != NULL){
     return head->x;
@@ -149,7 +155,7 @@ char peek(Stack* head) {
   return a;
 }
 
-void pop(Stack* &head){
+void pop(Stack* &head){ // removes thing from stack
 
   Stack* temp = head;
   head = head->next;
@@ -157,7 +163,7 @@ void pop(Stack* &head){
 
 }
 
-void enqueue(char z, Queue* &head) {
+void enqueue(char z, Queue* &head) { // adds to queue
 
   if (head == NULL){
     Queue* newpointer = new Queue();
@@ -181,7 +187,11 @@ void enqueue(char z, Queue* &head) {
 
 }
 
-void printqueue(Queue* head){
+void dequeue(char z, Queue* &head) {
+
+}
+
+void printqueue(Queue* head){ // prints
 
   if (head != NULL) {
     cout << head->x;
@@ -193,7 +203,7 @@ void printqueue(Queue* head){
 
 }
 
-void postfixqueue(Stack* &stack, Queue* &queue){
+void postfixqueue(Stack* &stack, Queue* &queue){ // moves everything in stack to queue
 
   while (stack != NULL){
     enqueue(stack->x, queue);
@@ -202,7 +212,7 @@ void postfixqueue(Stack* &stack, Queue* &queue){
 
 }
 
-void stackevaluate(Stack* &head, Queue* &qhead){
+void stackevaluate(Stack* &head, Queue* &qhead){ // adds to queue until opening parentheses found
 
   while (head->x != '('){
 
@@ -220,7 +230,7 @@ void stackevaluate(Stack* &head, Queue* &qhead){
 
 }
 
-void newtree(char z, Stack* &head, Tree* &tree){
+void newtree(char z, Stack* &head, Tree* &tree){ // creates tree
 
   Tree* newtree = new Tree(z);
 
@@ -264,7 +274,7 @@ void newtree(char z, Stack* &head, Tree* &tree){
 }
 
 
-void printInfix(Tree* tree){
+void printInfix(Tree* tree){ // prints infix form
 
   if (tree->getLeft() != NULL){
 
@@ -282,7 +292,7 @@ void printInfix(Tree* tree){
 
 }
 
-void printPostfix(Tree* tree){
+void printPostfix(Tree* tree){ // prints postfix form
 
   if (tree->getLeft() != NULL) {
 
@@ -300,7 +310,7 @@ void printPostfix(Tree* tree){
   
 }
 
-void printPrefix(Tree* tree){
+void printPrefix(Tree* tree){ // prints prefix form
 
   cout << tree->getchar();
 
