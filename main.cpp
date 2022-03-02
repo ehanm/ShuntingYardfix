@@ -15,7 +15,9 @@ void postfixqueue(Stack* &stack, Queue* &queue);
 void printqueue(Queue* head);
 void stackevaluate(Stack* &head, Queue* &qhead);
 void newtree(char z, Stack* &head, Tree* &tree);
-
+void printInfix(Tree* tree);
+void printPostfix(Tree* tree);
+void printPrefix(Tree* tree);
 
 int main(){
 
@@ -84,8 +86,10 @@ int main(){
   Stack* newhead = NULL;
   
   postfixqueue(stackhead, queuehead);// move stuff from stack to queue
-    
+
+  cout << "Postfix before tree: ";
   printqueue(queuehead);
+  cout << endl;
   // print queue
 
   Tree* treehead = NULL;
@@ -102,7 +106,6 @@ int main(){
     }
     else if (e == '+' || e == '-' || e == '*' || e == '/' || e == '^') {
 
-      
       newtree(e, newhead, treehead);
       push(e, newhead);
       queuehead = queuehead->next;
@@ -111,36 +114,21 @@ int main(){
 
   }
 
-  cout << newhead->x;
-  /*
-  while (newhead != NULL){
 
-    cout << newhead->x;
-    newhead = newhead->next;
+  cout << "Infix after tree: ";
+  printInfix(treehead);
+  cout << endl;
 
-  }
-  */
-    
-  
-  // make tree
+  cout << "Prefix after tree: ";
+  printPrefix(treehead);
+  cout << endl;
+
+  cout << "Postfix after tree: ";
+  printPostfix(treehead);
+  cout << endl;
 
   
-    
   
-  if (strcmp(input2, "Prefix") == 0) {
-    // make prefix thing
-  }
-  
-  else if (strcmp(input2, "Infix") == 0) {
-    // make infix thing
-  }
-  
-  else if (strcmp(input2, "Postfix") == 0) {
-    
-    // make postfix thing
-    
-  }
- 
   return 0;
 
 }
@@ -236,25 +224,97 @@ void newtree(char z, Stack* &head, Tree* &tree){
 
   Tree* newtree = new Tree(z);
 
-  cout << z;
-  
-  char a = peek(head);
+  if (tree == NULL){
+    char a = peek(head);
+ 
+    char b = peek(head->next);
 
-  cout << a;
-  
-  char b = peek(head->next);
+    Tree* right = new Tree(a);
 
-  cout << b;
+    Tree* left = new Tree(b);
+    
+    newtree->setRight(right);
   
-  newtree->setRight(b);
+    newtree->setLeft(left);
   
-  newtree->setLeft(a);
-  
-  pop(head);
-  pop(head);
+    pop(head);
+    pop(head);
+    
+    tree = newtree;
+  }
 
-  tree = newtree;
+  else if (tree->getchar() == '+' || tree->getchar() == '-' || tree->getchar() == '/' || tree->getchar() == '*' || tree->getchar() == '^'){
+
+    char a = tree->getchar();
+
+    char b = peek(head);
+
+    Tree* right = new Tree(b);
+
+    newtree->setRight(right);
+
+    newtree->setLeft(tree);
+
+    pop(head);
+
+    tree = newtree;
+    
+  }
 
 }
 
 
+void printInfix(Tree* tree){
+
+  if (tree->getLeft() != NULL){
+
+    printInfix(tree->getLeft());
+
+  }
+
+  cout << tree->getchar();
+
+  if (tree->getRight() != NULL){
+
+    printInfix(tree->getRight());
+
+  }
+
+}
+
+void printPostfix(Tree* tree){
+
+  if (tree->getLeft() != NULL) {
+
+    printPostfix(tree->getLeft());
+
+  }
+
+  if (tree->getRight() != NULL) {
+
+    printPostfix(tree->getRight());
+    
+  }
+
+  cout << tree->getchar();
+  
+}
+
+void printPrefix(Tree* tree){
+
+  cout << tree->getchar();
+
+  if (tree->getLeft() != NULL) {
+
+    printPostfix(tree->getLeft());
+
+  }
+  
+  if (tree->getRight() != NULL) {
+
+    printPostfix(tree->getRight());
+
+  }
+  
+  
+}

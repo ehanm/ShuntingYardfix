@@ -10,16 +10,14 @@ void Tree::setchar(char p){
   
 }
 
-void Tree::setLeft(char p){
+void Tree::setLeft(Tree* newleft){
 
-  Tree* newleft = new Tree(p);
   left = newleft;
   
 }
 
-void Tree::setRight(char p){
+void Tree::setRight(Tree* newright){
 
-  Tree* newright = new Tree(p);
   right = newright;
   
 }
@@ -44,8 +42,6 @@ Tree* Tree::getRight(){
 
 Tree::Tree(char newvalue){
 
-  right = NULL;
-  left = NULL;
   x = newvalue;
   
   

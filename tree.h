@@ -10,8 +10,8 @@ public:
   Tree* right;
 
   void setchar(char p);
-  void setLeft(char p);
-  void setRight(char p);
+  void setLeft(Tree* newleft);
+  void setRight(Tree* newright);
 
   char getchar();
   Tree* getLeft();
